@@ -22,4 +22,13 @@ contract EventItCheckIn is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         bool burnAfter
     );
     event OperatorSet(uint256 indexed eventId, address indexed operator, bool allowed);
+
+    modifier onlyOperator(uint256 eventId) {
+        address creator = manager.events(eventId).creator;
+        require(
+            msg.sender == creator || operators[eventId][msg.sender],
+            "EventItCheckIn: not operator"
+        );
+        _;
+    }
 }
