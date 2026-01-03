@@ -100,4 +100,21 @@ contract EventItTicket is
             require(!soulbound[eventId], "EventItTicket: soulbound");
         }
     }
+
+    function _burn(uint256 tokenId)
+        internal
+        override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
+    {
+        super._burn(tokenId);
+        delete _tokenEvent[tokenId];
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721Upgradeable, ERC721URIStorageUpgradeable)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
 }
