@@ -112,4 +112,12 @@ contract EventItEventManager is
         events[eventId].paused = pause;
         emit EventPaused(eventId, pause);
     }
+
+    function updateEventMetadata(uint256 eventId, string calldata newURI)
+        external
+        onlyCreator(eventId)
+    {
+        events[eventId].metadataURI = newURI;
+        emit EventMetadataUpdated(eventId, newURI);
+    }
 }
