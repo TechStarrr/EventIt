@@ -126,4 +126,6 @@ contract EventItTicket is
     {
         return super.supportsInterface(interfaceId);
     }
+
+    function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 }
