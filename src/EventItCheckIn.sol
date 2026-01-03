@@ -39,4 +39,12 @@ contract EventItCheckIn is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         ticket = EventItTicket(ticket_);
         manager = EventItEventManager(manager_);
     }
+
+    function setOperator(uint256 eventId, address operator, bool allowed)
+        external
+        onlyOperator(eventId)
+    {
+        operators[eventId][operator] = allowed;
+        emit OperatorSet(eventId, operator, allowed);
+    }
 }
