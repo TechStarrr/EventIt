@@ -27,6 +27,11 @@ contract EventItTicket is
     event CheckInUpdated(address indexed checkIn);
     event SoulboundSet(uint256 indexed eventId, bool enabled);
 
+    modifier onlyEventManager() {
+        require(msg.sender == eventManager, "EventItTicket: not manager");
+        _;
+    }
+
     function initialize(
         string calldata name_,
         string calldata symbol_,
