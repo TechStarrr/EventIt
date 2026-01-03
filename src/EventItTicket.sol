@@ -88,4 +88,16 @@ contract EventItTicket is
         _burn(tokenId);
         emit TicketBurned(eventId, tokenId);
     }
+
+    function _update(
+        address to,
+        uint256 tokenId,
+        address auth
+    ) internal override(ERC721Upgradeable) returns (address from) {
+        from = super._update(to, tokenId, auth);
+        if (from != address(0) && to != address(0)) {
+            uint256 eventId = _tokenEvent[tokenId];
+            require(!soulbound[eventId], "EventItTicket: soulbound");
+        }
+    }
 }
