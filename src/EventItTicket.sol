@@ -46,4 +46,9 @@ contract EventItTicket is
         eventManager = eventManager_;
         emit EventManagerUpdated(eventManager_);
     }
+
+    function setCheckIn(address checkIn_) external onlyOwner {
+        checkIn = checkIn_;
+        emit CheckInUpdated(checkIn_);
+    }
 }
