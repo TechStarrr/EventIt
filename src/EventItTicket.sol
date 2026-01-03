@@ -32,6 +32,11 @@ contract EventItTicket is
         _;
     }
 
+    modifier onlyMinterOrBurner() {
+        require(msg.sender == eventManager || msg.sender == checkIn, "EventItTicket: not authorized");
+        _;
+    }
+
     function initialize(
         string calldata name_,
         string calldata symbol_,
