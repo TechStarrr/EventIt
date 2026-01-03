@@ -86,4 +86,25 @@ contract EventItEventManager is
 
         emit EventCreated(eventId, msg.sender);
     }
+
+    function buyTicket(uint256 eventId, string calldata ticketTokenURI)
+        external
+        payable
+        nonReentrant
+        returns (uint256 tokenId)
+    {
+        EventData storage data = events[eventId];
+        require(data.creator != address(0), "EventIt: missing");
+        require(!data.paused, "EventIt: paused");
+        require(block.timestamp >= data.startTime, "EventIt: not started");
+        require(block.timestamp <= data.endTime, "EventIt: ended");
+        require(msg.value == data.price, "EventIt: wrong price");
+        require(data.minted < data.maxSupply, "EventIt: sold out");
+
+        data.minted += 1;
+        balances[eventId] += msg.value;
+
+        tokenId = ticket.mintTicket(msg.sender, eventId, ticketTokenURI);
+        emit TicketPurchased(eventId, msg.sender, tokenId, msg.value);
+    }
 }
