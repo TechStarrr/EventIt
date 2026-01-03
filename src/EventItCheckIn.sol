@@ -31,4 +31,12 @@ contract EventItCheckIn is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         );
         _;
     }
+
+    function initialize(address ticket_, address manager_) external initializer {
+        __Ownable_init(msg.sender);
+        __UUPSUpgradeable_init();
+
+        ticket = EventItTicket(ticket_);
+        manager = EventItEventManager(manager_);
+    }
 }
