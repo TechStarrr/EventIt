@@ -56,4 +56,8 @@ contract EventItTicket is
         soulbound[eventId] = enabled;
         emit SoulboundSet(eventId, enabled);
     }
+
+    function eventOf(uint256 tokenId) external view returns (uint256) {
+        return _tokenEvent[tokenId];
+    }
 }
