@@ -46,4 +46,13 @@ contract EventItEventManager is
         require(events[eventId].creator == msg.sender, "EventIt: not creator");
         _;
     }
+
+    function initialize(address ticket_) external initializer {
+        __Ownable_init(msg.sender);
+        __ReentrancyGuard_init();
+        __UUPSUpgradeable_init();
+
+        ticket = EventItTicket(ticket_);
+        nextEventId = 1;
+    }
 }
