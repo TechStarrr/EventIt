@@ -64,4 +64,6 @@ contract EventItCheckIn is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
         emit CheckedIn(eventId, tokenId, msg.sender, burnAfter);
     }
+
+    function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 }
