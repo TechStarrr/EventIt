@@ -60,4 +60,16 @@ contract EventItTicket is
     function eventOf(uint256 tokenId) external view returns (uint256) {
         return _tokenEvent[tokenId];
     }
+
+    function mintTicket(
+        address to,
+        uint256 eventId,
+        string calldata tokenURI_
+    ) external onlyEventManager returns (uint256 tokenId) {
+        tokenId = _nextTokenId++;
+        _tokenEvent[tokenId] = eventId;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, tokenURI_);
+        emit TicketMinted(eventId, tokenId, to);
+    }
 }
