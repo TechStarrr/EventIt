@@ -120,4 +120,16 @@ contract EventItEventManager is
         events[eventId].metadataURI = newURI;
         emit EventMetadataUpdated(eventId, newURI);
     }
+
+    function withdraw(uint256 eventId, address payable to, uint256 amount)
+        external
+        onlyCreator(eventId)
+        nonReentrant
+    {
+        require(amount <= balances[eventId], "EventIt: amount");
+        balances[eventId] -= amount;
+        (bool success, ) = to.call{value: amount}("");
+        require(success, "EventIt: withdraw failed");
+        emit Withdrawal(eventId, to, amount);
+    }
 }
