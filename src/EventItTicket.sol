@@ -26,4 +26,19 @@ contract EventItTicket is
     event EventManagerUpdated(address indexed eventManager);
     event CheckInUpdated(address indexed checkIn);
     event SoulboundSet(uint256 indexed eventId, bool enabled);
+
+    function initialize(
+        string calldata name_,
+        string calldata symbol_,
+        address eventManager_
+    ) external initializer {
+        __ERC721_init(name_, symbol_);
+        __ERC721URIStorage_init();
+        __Ownable_init(msg.sender);
+        __UUPSUpgradeable_init();
+
+        eventManager = eventManager_;
+        _nextTokenId = 1;
+        emit EventManagerUpdated(eventManager_);
+    }
 }
