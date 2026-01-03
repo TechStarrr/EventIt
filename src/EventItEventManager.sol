@@ -107,4 +107,9 @@ contract EventItEventManager is
         tokenId = ticket.mintTicket(msg.sender, eventId, ticketTokenURI);
         emit TicketPurchased(eventId, msg.sender, tokenId, msg.value);
     }
+
+    function pauseEvent(uint256 eventId, bool pause) external onlyCreator(eventId) {
+        events[eventId].paused = pause;
+        emit EventPaused(eventId, pause);
+    }
 }
