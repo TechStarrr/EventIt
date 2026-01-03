@@ -132,4 +132,6 @@ contract EventItEventManager is
         require(success, "EventIt: withdraw failed");
         emit Withdrawal(eventId, to, amount);
     }
+
+    function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 }
