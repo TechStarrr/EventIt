@@ -41,4 +41,9 @@ contract EventItTicket is
         _nextTokenId = 1;
         emit EventManagerUpdated(eventManager_);
     }
+
+    function setEventManager(address eventManager_) external onlyOwner {
+        eventManager = eventManager_;
+        emit EventManagerUpdated(eventManager_);
+    }
 }
