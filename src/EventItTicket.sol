@@ -51,4 +51,9 @@ contract EventItTicket is
         checkIn = checkIn_;
         emit CheckInUpdated(checkIn_);
     }
+
+    function setSoulbound(uint256 eventId, bool enabled) external onlyEventManager {
+        soulbound[eventId] = enabled;
+        emit SoulboundSet(eventId, enabled);
+    }
 }
