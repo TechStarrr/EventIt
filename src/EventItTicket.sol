@@ -82,4 +82,10 @@ contract EventItTicket is
         _setTokenURI(tokenId, tokenURI_);
         emit TicketMinted(eventId, tokenId, to);
     }
+
+    function burn(uint256 tokenId) external onlyMinterOrBurner {
+        uint256 eventId = _tokenEvent[tokenId];
+        _burn(tokenId);
+        emit TicketBurned(eventId, tokenId);
+    }
 }
