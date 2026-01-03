@@ -55,4 +55,35 @@ contract EventItEventManager is
         ticket = EventItTicket(ticket_);
         nextEventId = 1;
     }
+
+    function createEvent(
+        uint96 price,
+        uint32 maxSupply,
+        uint64 startTime,
+        uint64 endTime,
+        bool soulbound,
+        string calldata metadataURI
+    ) external returns (uint256 eventId) {
+        require(maxSupply > 0, "EventIt: supply 0");
+        require(endTime > startTime, "EventIt: invalid time");
+
+        eventId = nextEventId++;
+        events[eventId] = EventData({
+            creator: msg.sender,
+            price: price,
+            maxSupply: maxSupply,
+            minted: 0,
+            startTime: startTime,
+            endTime: endTime,
+            paused: false,
+            soulbound: soulbound,
+            metadataURI: metadataURI
+        });
+
+        if (soulbound) {
+            ticket.setSoulbound(eventId, true);
+        }
+
+        emit EventCreated(eventId, msg.sender);
+    }
 }
