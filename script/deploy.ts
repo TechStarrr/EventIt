@@ -22,3 +22,11 @@ function normalizeBytecode(bytecode: Artifact["bytecode"]): `0x${string}` {
   const raw = typeof bytecode === "string" ? bytecode : bytecode.object;
   return raw.startsWith("0x") ? (raw as `0x${string}`) : (`0x${raw}` as `0x${string}`);
 }
+
+function getEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`Missing env var: ${name}`);
+  }
+  return value;
+}
