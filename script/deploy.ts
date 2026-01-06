@@ -17,3 +17,8 @@ function loadArtifact(contractName: string): Artifact {
   const raw = fs.readFileSync(artifactPath, "utf8");
   return JSON.parse(raw) as Artifact;
 }
+
+function normalizeBytecode(bytecode: Artifact["bytecode"]): `0x${string}` {
+  const raw = typeof bytecode === "string" ? bytecode : bytecode.object;
+  return raw.startsWith("0x") ? (raw as `0x${string}`) : (`0x${raw}` as `0x${string}`);
+}
