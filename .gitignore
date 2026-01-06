@@ -14,4 +14,8 @@ docs/
 .env
 .github
 nbh.md
-lib
+lib/forge-std
+lib/oppenzeppelin-contracts
+lib/oppenzeppelin-contracts-upgradeable
+lib/oppenzeppelin-foundry-upgrades
+
