@@ -5,4 +5,8 @@ import {EventItEventManager} from "./EventItEventManager.sol";
 
 contract EventItEventManagerV2 is EventItEventManager {
     mapping(uint256 eventId => string) public venueName;
+
+    function setVenueName(uint256 eventId, string calldata name) external onlyCreator(eventId) {
+        venueName[eventId] = name;
+    }
 }
